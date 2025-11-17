@@ -1,85 +1,123 @@
-<b>X-O (Tic Tac Toe) oyununun ve uygulanan Minimax ve Alfa-Beta Budaması algoritmalarının teknik detayları, görsel çıktıları ve performans testlerinin sonuçları sunulmuştur.</b>
+# X-O (Tic-Tac-Toe) için Minimax ve Alfa-Beta Budaması Karşılaştırması
 
-<h2>Minimax Algoritması</h2>
+Bu proje, klasik X-O (Tic-Tac-Toe) oyunu üzerinde iki farklı yapay zeka karar verme algoritmasını uygular ve karşılaştırır: **Minimax** ve **Alfa-Beta Budaması (Alpha-Beta Pruning)**.
 
-  Minimax, X-O gibi iki oyunculu, sıfır toplamlı (bir oyuncunun kazancı diğerinin kaybına eşit olan) ve tam bilgili (her iki oyuncunun da oyunun tüm durumunu bildiği) oyunlar için kullanılan bir karar verme algoritmasıdır. Algoritmanın temel amacı, bir sonraki hamlenin en optimal (en iyi) hamle olmasını sağlamaktır.
-    
-<h2>Alfa-Beta Budaması (Alpha-Beta Pruning)</h2>
+Projenin temel amacı, Alfa-Beta Budaması optimizasyonunun, standart Minimax algoritmasına kıyasla arama ağacındaki düğüm sayısını ve hesaplama süresini nasıl önemli ölçüde azalttığını göstermektir.
 
-  Alfa-Beta Budaması, Minimax algoritmasının bir optimizasyonudur. Minimax'ın en büyük problemi, özellikle karmaşık oyunlarda (X-O basit olsa da, satranç gibi) oyun ağacının çok hızlı büyümesi ve hesaplama maliyetinin aşırı artmasıdır.
-  Alfa-Beta Budaması, Minimax ağacının tamamını keşfetmek yerine, "gereksiz" veya "sonucu değiştirmeyecek" dalları budayarak arama işlemini hızlandırır. Bunu yaparken Alfa (α) ve Beta (β) adında iki değer tutar.
+![GitHub lisanı](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python Sürümü](https://img.shields.io/badge/python-3.9%2B-blue.svg)
+![Kullanılan Algoritmalar](https://img.shields.io/badge/AI-Minimax%20%26%20Alpha--Beta-orange.svg)
 
-  Alfa (α): MAX oyuncusunun (bizim) şu ana kadar garantilediği en yüksek skordur. Başlangıçta -∞ (eksi sonsuz) olarak ayarlanır.
-  Beta (β): MIN oyuncusunun (rakibin) şu ana kadar garantilediği en düşük skordur. Başlangıçta +∞ (artı sonsuz) olarak ayarlanır.
+---
 
-<h2>Ekran Çıktıları & Test Sonuçları</h2>
+## 🧠 Uygulanan Algoritmalar
 
-<img width="452" height="837" alt="Ekran görüntüsü 2025-11-16 192852" src="https://github.com/user-attachments/assets/d6b7c68a-8d58-443d-a1bb-f68aaf72735b" />
+### 1. Minimax Algoritması
+Minimax, X-O gibi iki oyunculu, sıfır toplamlı ve tam bilgili oyunlar için kullanılan bir karar verme algoritmasıdır. Temel amacı, bir sonraki hamlenin en optimal (en iyi) hamle olmasını sağlamaktır.
 
-Durum: Bu, oyunun başlangıç anıdır. Tahta tamamen boştur.
+### 2. Alfa-Beta Budaması (Alpha-Beta Pruning)
+Alfa-Beta Budaması, Minimax algoritmasının bir optimizasyonudur. Minimax'ın tüm oyun ağacını keşfetmesi yerine, "gereksiz" veya "sonucu değiştirmeyecek" dalları budayarak arama işlemini hızlandırır.
 
-Açıklama: "Sıra sizde (X)" yazısı, programın ilk hamleyi oyuncudan beklediğini gösterir.
+Bunu yaparken iki değer tutar:
+* **Alfa ($\alpha$):** `MAX` oyuncusunun (bizim) şu ana kadar garantilediği **en yüksek** skordur. (Başlangıç: $-\infty$)
+* **Beta ($\beta$):** `MIN` oyuncusunun (rakibin) şu ana kadar garantilediği **en düşük** skordur. (Başlangıç: $+\infty$)
 
-Performans: "Minimax" ve "Alfa-Beta" için Düğüm ve Süre değerleri 0'dır, çünkü yapay zeka henüz bir hamle hesaplaması yapmamıştır.
+---
 
+## 📊 Performans Analizi ve Test Sonuçları
 
-<img width="452" height="837" alt="Ekran görüntüsü 2025-11-16 192936" src="https://github.com/user-attachments/assets/0d78d8a9-50ec-467c-9828-dedb64b82a18" />
+Aşağıdaki testler, oyuncunun (X) her hamlesine karşılık yapay zekanın (O) optimal hamleyi bulmak için ne kadar hesaplama yaptığını göstermektedir.
 
-Durum: Oyuncu 'X' ilk hamlesini sol üst köşeye (7) oynamıştır. Yapay zeka 'O' ise bu hamleye karşılık olarak merkezi (5) seçmiştir.
+### Performans Özeti
+| Hamle (AI) | Algoritma | Gezilen Düğüm Sayısı | Süre (ms) | Analiz |
+| :--- | :--- | :--- | :--- | :--- |
+| **1. Hamle** | Minimax | 59,704 | 75.32 | Tam arama |
+| (8 boş kare) | **Alfa-Beta** | **7,500** | **10.55** | **~7 kat daha hızlı, %87 daha az düğüm** |
+| **2. Hamle** | Minimax | 1,052 | 4.52 | - |
+| (6 boş kare) | **Alfa-Beta** | **524** | **1.10** | **~4 kat daha hızlı, %50 daha az düğüm** |
+| **3. Hamle** | Minimax | 46 | 0.08 | - |
+| (4 boş kare) | **Alfa-Beta** | **42** | **0.06** | Performanslar yakınsıyor |
+| **4. Hamle** | Minimax | 4 | 0.03 | - |
+| (2 boş kare) | **Alfa-Beta** | **4** | **0.01** | Budanacak dal kalmadı, performans eşit |
 
-Açıklama: Bu, yapay zekanın oyundaki ilk ve en karmaşık hamlesidir. AI'ın 8 olası hamlesi vardı.
+<br>
 
-Performans:
-Minimax: 59,704 Düğüm | 75.32 ms
-Alfa-Beta: 7,500 Düğüm | 10.55 ms
+### Test Adımları (Görsel Çıktılar)
 
-Analiz: Projenizin ana tezini kanıtlayan en net görüntü budur. Alfa-Beta budaması, Minimax'ın gezdiği düğüm sayısının sadece %12'sini gezerek (59,704 yerine 7,500) ve yaklaşık 7 kat daha hızlı (75ms yerine 10ms) bir sürede aynı optimal hamleyi (merkezi) bulmuştur.
+#### 1. Oyun Başlangıcı (Hamle Yok)
+* **Durum:** Tahta boş. "Sıra sizde (X)" mesajı görüntüleniyor.
+* **Performans:** AI henüz hesaplama yapmadı (Düğüm: 0, Süre: 0).
 
+<img src="https://github.com/user-attachments/assets/d6b7c68a-8d58-443d-a1bb-f68aaf72735b" width="400" />
 
-<img width="452" height="837" alt="Ekran görüntüsü 2025-11-16 192957" src="https://github.com/user-attachments/assets/9192fe60-8e30-44ba-9ee2-fd4798afd12c" />
+---
 
-Durum: Oyuncu 'X' ikinci hamlesini sağ alt köşeye (3) oynamıştır. Yapay zeka 'O' ise buna karşılık olarak alt ortaya (2) oynamıştır.
+#### 2. AI'ın İlk Hamlesi (Merkezi Seçim)
+* **Durum:** Oyuncu (X) sol üste (7) oynadı. AI (O) merkeze (5) karşılık verdi.
+* **Minimax:** 59,704 Düğüm | 75.32 ms
+* **Alfa-Beta:** 7,500 Düğüm | 10.55 ms
+> **Analiz:** Projenin ana tezini kanıtlayan en net görüntü budur. Alfa-Beta budaması, Minimax'ın gezdiği düğüm sayısının sadece **%12'sini** gezerek ve yaklaşık **7 kat daha hızlı** bir sürede aynı optimal hamleyi bulmuştur.
 
-Açıklama: Tahtadaki boş kare sayısı azaldıkça, algoritmaların hesaplaması gereken toplam olasılık da (düğüm sayısı) azalmıştır.
+<img src="https://github.com/user-attachments/assets/0d78d8a9-50ec-467c-9828-dedb64b82a18" width="400" />
 
-Performans:
-Minimax: 1,052 Düğüm | 4.52 ms
-Alfa-Beta: 524 Düğüm | 1.10 ms
+---
 
-Analiz: Alfa-Beta, budama yaparak hala Minimax'ın yaklaşık yarısı kadar düğümü gezmektedir ve 4 kat daha hızlıdır
+#### 3. Oyun Ortası
+* **Durum:** Oyuncu (X) sağ alta (3) oynadı. AI (O) alt ortaya (2) karşılık verdi.
+* **Minimax:** 1,052 Düğüm | 4.52 ms
+* **Alfa-Beta:** 524 Düğüm | 1.10 ms
+> **Analiz:** Olasılıklar azaldıkça arama ağacı küçüldü. Alfa-Beta hala Minimax'ın yaklaşık yarısı kadar düğümü gezerek **4 kat daha hızlı** çalışmaktadır.
 
+<img src="https://github.com/user-attachments/assets/9192fe60-8e30-44ba-9ee2-fd4798afd12c" width="400" />
 
-<img width="452" height="837" alt="Ekran görüntüsü 2025-11-16 193018" src="https://github.com/user-attachments/assets/4b319e04-c0ab-49bf-a01e-077ebc02b253" />
+---
 
-Durum: Oyuncu 'X' üst ortaya (8) oynamıştır. AI 'O' ise sağ üste (9) oynamıştır (oyuncunun kazanmasını engellemek için).
+#### 4. Oyun Sonu (AI 3. Hamle)
+* **Durum:** Oyuncu (X) üst ortaya (8) oynadı. AI (O) sağ üste (9) oynayarak kazanmayı engelledi.
+* **Minimax:** 46 Düğüm | 0.08 ms
+* **Alfa-Beta:** 42 Düğüm | 0.06 ms
+> **Analiz:** Olası hamle sayısı çok azaldığı için (arama ağacı çok küçüldüğü için), Alfa-Beta'nın "budayabileceği" çok az dal kalmıştır. Bu nedenle iki algoritmanın performansı neredeyse eşitlenmiştir.
 
-Açıklama: Oyun sonuna yaklaşıldı. Tahtada sadece 3 boş kare kaldı.
+<img src="https://github.com/user-attachments/assets/4b319e04-c0ab-49bf-a01e-077ebc02b253" width="400" />
 
-Performans:
-Minimax: 46 Düğüm | 0.08 ms
-Alfa-Beta: 42 Düğüm | 0.06 ms
+---
 
-Analiz: Olası hamle sayısı çok azaldığı için (arama ağacı çok küçüldüğü için), Alfa-Beta'nın "budayabileceği" çok az dal kalmıştır. Bu nedenle iki algoritmanın performansı neredeyse eşitlenmiştir.
+#### 5. AI'ın Son Hamlesi
+* **Durum:** Oyuncu (X) sol alta (1) oynadı. AI (O) kalan iki seçenekten birini (orta sol - 4) oynadı.
+* **Minimax:** 4 Düğüm | 0.03 ms
+* **Alfa-Beta:** 4 Düğüm | 0.01 ms
+> **Analiz:** Arama ağacı o kadar küçülmüştür ki, budama yapmanın hiçbir avantajı kalmamıştır.
 
+<img src="https://github.com/user-attachments/assets/572f7ec9-216b-4286-8407-fc10a36f8f86" width="400" />
 
-<img width="452" height="837" alt="Ekran görüntüsü 2025-11-16 193035" src="https://github.com/user-attachments/assets/572f7ec9-216b-4286-8407-fc10a36f8f86" />
+---
 
-Durum: Oyuncu 'X' sol alta (1) oynamıştır. AI 'O' ise orta sola (4) oynamıştır.
+#### 6. Sonuç: Berabere
+* **Durum:** Oyuncu (X) son kareye (6) oynadı ve tahta doldu.
+* **Sonuç:** "Oyun Berabere!"
+* **Performans:** AI yeni bir hesaplama yapmadığı için önceki adımın değerleri (4 Düğüm) geçerlidir.
 
-Açıklama: AI'ın yapabil-eceği sadece iki hamle kalmıştı.
+<img src="https://github.com/user-attachments/assets/006d2e2c-d8c8-4771-8d75-0364f4f1f41e" width="400" />
 
-Performans:
-Minimax: 4 Düğüm | 0.03 ms
-Alfa-Beta: 4 Düğüm | 0.01 ms
+---
 
-Analiz: Arama ağacı o kadar küçülmüştür ki, budama yapmanın hiçbir avantajı kalmamıştır. İki algoritma da aynı 4 olasılığı kontrol etmiştir.
+## 🚀 Kurulum ve Çalıştırma
 
+Projeyi yerel makinenizde çalıştırmak için:
 
-<img width="452" height="837" alt="Ekran görüntüsü 2025-11-16 193051" src="https://github.com/user-attachments/assets/006d2e2c-d8c8-4771-8d75-0364f4f1f41e" />
+1.  Depoyu klonlayın:
+    ```bash
+    git clone [https://github.com/KULLANICI_ADINIZ/PROJE_ADINIZ.git](https://github.com/KULLANICI_ADINIZ/PROJE_ADINIZ.git)
+    cd PROJE_ADINIZ
+    ```
+2.  (Varsa) Gerekli kütüphaneleri yükleyin:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3.  Uygulamayı çalıştırın:
+    ```bash
+    python main.py
+    ```
 
-Durum: Tahtada kalan son boş kareye (orta sağ - 6) oyuncu 'X' oynamış ve tahta dolmuştur.
-
-Açıklama: "Oyun Be-rabere!" yazısı, check_ga-me_over fonksiyonunun çalıştığını ve kazanan olmadığını tespit ettiğini gösterir.
-
-Performans: Performans sayıları (Minimax: 4, Alfa-Beta: 4) bir önceki adımdaki (AI'ın son hamlesi) sayıların aynısıdır. Oyuncunun son hamlesi bir AI hesaplamasını tetiklemediği için bu değerler değişmemiştir
-
+## 📄 Lisans
+Bu proje MIT Lisansı altında lisanslanmıştır. Detaylar için `LICENSE` dosyasına bakınız.
