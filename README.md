@@ -107,8 +107,8 @@ Projeyi yerel makinenizde çalıştırmak için:
 
 1.  Depoyu klonlayın:
     ```bash
-    git clone [https://github.com/KULLANICI_ADINIZ/PROJE_ADINIZ.git](https://github.com/KULLANICI_ADINIZ/PROJE_ADINIZ.git)
-    cd PROJE_ADINIZ
+    git clone https://github.com/m-yusufuzun/Minimax-ve-Alpha-Beta-Budamasi-ile-TicTacToe-Oyunu.git
+    cd Minimax-ve-Alpha-Beta-Budamasi-ile-TicTacToe-Oyunu
     ```
 2.  (Varsa) Gerekli kütüphaneleri yükleyin:
     ```bash
